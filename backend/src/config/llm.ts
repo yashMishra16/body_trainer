@@ -1,41 +1,24 @@
-import { ChatAnthropic } from '@langchain/anthropic';
-import { ChatOpenAI } from '@langchain/openai';
+import { ChatGroq } from '@langchain/groq';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export function getAnthropicModel(modelName = 'claude-3-5-sonnet-20241022') {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error('ANTHROPIC_API_KEY environment variable is required');
+export function getGroqModel(modelName = 'llama3-70b-8192') {
+  if (!process.env.GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY environment variable is required');
   }
 
-  return new ChatAnthropic({
+  return new ChatGroq({
     model: modelName,
     temperature: 0.7,
     maxTokens: 4096,
-    anthropicApiKey: process.env.ANTHROPIC_API_KEY,
-  });
-}
-
-export function getOpenAIModel(modelName = 'gpt-4o') {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error('OPENAI_API_KEY environment variable is required');
-  }
-
-  return new ChatOpenAI({
-    model: modelName,
-    temperature: 0.7,
-    maxTokens: 4096,
-    openAIApiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.GROQ_API_KEY,
   });
 }
 
 export function getLLM() {
-  if (process.env.ANTHROPIC_API_KEY) {
-    return getAnthropicModel();
+  if (process.env.GROQ_API_KEY) {
+    return getGroqModel();
   }
-  if (process.env.OPENAI_API_KEY) {
-    return getOpenAIModel();
-  }
-  throw new Error('At least one LLM API key (ANTHROPIC_API_KEY or OPENAI_API_KEY) is required');
+  throw new Error('GROQ_API_KEY environment variable is required');
 }
