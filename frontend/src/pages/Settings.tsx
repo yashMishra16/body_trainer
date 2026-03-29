@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export default function Settings() {
   const [apiSettings, setApiSettings] = useState({
     anthropicKey: '',
-    openaiKey: '',
   });
 
   const [notifications, setNotifications] = useState({
@@ -29,23 +28,12 @@ export default function Settings() {
             </p>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Anthropic Claude API</label>
+                <label className="block text-sm text-gray-400 mb-1">Groq API Key</label>
                 <input
                   type="password"
                   className="input-field"
                   value={apiSettings.anthropicKey}
                   onChange={e => setApiSettings(p => ({ ...p, anthropicKey: e.target.value }))}
-                  placeholder="Configured server-side"
-                  disabled
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-400 mb-1">OpenAI API (Fallback)</label>
-                <input
-                  type="password"
-                  className="input-field"
-                  value={apiSettings.openaiKey}
-                  onChange={e => setApiSettings(p => ({ ...p, openaiKey: e.target.value }))}
                   placeholder="Configured server-side"
                   disabled
                 />
@@ -113,7 +101,7 @@ export default function Settings() {
               Body Trainer v1.0.0 — 5-Agent Aesthetic Physique System
             </p>
             <p className="text-gray-500 text-xs mt-1">
-              Powered by Anthropic Claude & OpenAI GPT-4
+              Powered by Groq (LLaMA 3)
             </p>
           </div>
         </div>
